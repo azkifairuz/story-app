@@ -28,7 +28,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/welcome_to_the_storyku"
-        android:typeface="@font/inter_regular"
+        style="@style/extra_large"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +40,9 @@
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Your Description"
+        android:text="@string/storyku_desc"
+        style="@style/medium"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,27 +50,28 @@
         />
 
     <Button
-        android:id="@+id/firstButton"
+        android:id="@+id/loginBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="First Button"
+        android:text="@string/login_button"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/secondButton"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:contentDescription="@string/login_button"
         />
 
     <Button
-        android:id="@+id/secondButton"
+        android:id="@+id/registerBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Second Button"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
-        app:layout_constraintStart_toEndOf="@+id/firstButton"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        />
-
+        android:background="@drawable/button_stroke"
+        android:textColor="@color/purple_light"
+        android:contentDescription="@string/register_button"
+        android:text="@string/register_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

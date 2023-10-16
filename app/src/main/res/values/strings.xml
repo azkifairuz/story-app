@@ -3,5 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_image">Welcome Image</string>
-    <string name="welcome_to_the_storyku">Welcome to the storyku</string>
+    <string name="welcome_to_the_storyku">Welcome to the StoryKu</string>
+    <string name="storyku_desc">
+        Want to share knowledge about Android, iOS,
+        Front End, Back End, Machine Learning and other IT fields?
+        share your story in StoryKu
+    </string>
+    <string name="login_button">Login</string>
+    <string name="register_button">register</string>
 </resources>
