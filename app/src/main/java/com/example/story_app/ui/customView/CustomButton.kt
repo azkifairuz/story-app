@@ -9,8 +9,9 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.example.story_app.R
 
-class ButtonStroke : AppCompatButton {
-    private lateinit var bgCollor: Drawable
+class CustomButton : AppCompatButton {
+    private lateinit var enabledBackground: Drawable
+    private lateinit var disabledBackground: Drawable
     private var txtColor: Int = 0
 
     constructor(context: Context) : super(context) {
@@ -31,17 +32,23 @@ class ButtonStroke : AppCompatButton {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        setBackgroundDrawable(bgCollor)
+        background = if (isEnabled) enabledBackground else disabledBackground
         setTextColor(txtColor)
         textSize = 12f
         gravity = Gravity.CENTER
     }
 
     private fun init() {
-        txtColor = ContextCompat.getColor(context, R.color.purple_light)
-        bgCollor = ContextCompat.getDrawable(
+        txtColor = ContextCompat.getColor(context, android.R.color.background_light)
+
+        enabledBackground = ContextCompat.getDrawable(
             context,
-            R.drawable.stroke_button
+            R.drawable.enabled_button
+        ) as Drawable
+
+        enabledBackground = ContextCompat.getDrawable(
+            context,
+            R.drawable.disabled_button
         ) as Drawable
     }
 }

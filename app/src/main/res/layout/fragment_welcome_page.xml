@@ -49,7 +49,7 @@
         android:layout_marginTop="8dp"
         />
 
-    <Button
+    <com.example.story_app.ui.customView.CustomButton
         android:id="@+id/loginBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -62,13 +62,11 @@
         android:contentDescription="@string/login_button"
         />
 
-    <Button
+    <com.example.story_app.ui.customView.ButtonStroke
         android:id="@+id/registerBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_stroke"
-        android:textColor="@color/purple_light"
         android:contentDescription="@string/register_button"
         android:text="@string/register_button"
         app:layout_constraintEnd_toEndOf="parent"
