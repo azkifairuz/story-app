@@ -1,7 +1,7 @@
 package com.example.story_app.data.repo
 
 import com.example.story_app.data.ApiService
-import com.example.story_app.data.response.RegisterResponse
+import com.example.story_app.data.response.ErrorResponse
 import retrofit2.Call
 
 class AuthRepository(private val apiService: ApiService) {
@@ -9,7 +9,7 @@ class AuthRepository(private val apiService: ApiService) {
         name: String,
         email: String,
         password: String
-    ): Call<RegisterResponse> {
+    ): ErrorResponse {
         return apiService.register(name, email, password)
     }
 }
