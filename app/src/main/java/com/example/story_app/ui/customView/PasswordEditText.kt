@@ -1,5 +1,6 @@
 package com.example.story_app.ui.customView
 
+
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,7 +8,7 @@ import android.util.AttributeSet
 import android.util.Patterns
 import androidx.appcompat.widget.AppCompatEditText
 
-class EmailEditText : AppCompatEditText {
+class PasswordEditText : AppCompatEditText {
 
     constructor(context: Context) : super(context) {
         init()
@@ -30,17 +31,12 @@ class EmailEditText : AppCompatEditText {
             }
 
             override fun afterTextChanged(editable: Editable?) {
-                if (!isValidEmail(editable.toString())) {
-                    error = "Format email salah"
+                if (editable.toString().length < 8) {
+                    error = "Password minimal terdiri dari 8 karakter"
                 } else {
                     error = null
                 }
             }
         })
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        val pattern = Patterns.EMAIL_ADDRESS
-        return pattern.matcher(email).matches()
     }
 }
