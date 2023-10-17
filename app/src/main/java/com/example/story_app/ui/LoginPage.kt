@@ -3,12 +3,10 @@ package com.example.story_app.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.story_app.R
 import com.example.story_app.databinding.FragmentLoginPageBinding
 
 
