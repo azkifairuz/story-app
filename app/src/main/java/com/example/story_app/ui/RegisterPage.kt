@@ -21,7 +21,9 @@ class RegisterPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setMyButtonEnable()
+
         binding.emailEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
@@ -33,6 +35,7 @@ class RegisterPage : Fragment() {
             override fun afterTextChanged(s: Editable) {
             }
         })
+
         binding.passwordEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
@@ -44,6 +47,7 @@ class RegisterPage : Fragment() {
             override fun afterTextChanged(s: Editable) {
             }
         })
+
         binding.nameEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
