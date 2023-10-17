@@ -15,9 +15,8 @@ import com.example.story_app.databinding.FragmentLoginPageBinding
 class LoginPage : Fragment() {
     private lateinit var binding: FragmentLoginPageBinding
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentLoginPageBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -27,18 +26,22 @@ class LoginPage : Fragment() {
         binding.emailEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 setMyButtonEnable()
             }
+
             override fun afterTextChanged(s: Editable) {
             }
         })
         binding.passwordEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 setMyButtonEnable()
             }
+
             override fun afterTextChanged(s: Editable) {
             }
         })
@@ -47,9 +50,15 @@ class LoginPage : Fragment() {
 
     private fun setMyButtonEnable() {
         val email = binding.emailEditText.text
+        val isEmailValid = binding.emailEditText.isValidEmail(email.toString())
+
         val password = binding.passwordEditText.text
+        val isPasswordValid = binding.passwordEditText.editableText.toString().length >= 8
+
         val result = email.toString().isNotEmpty() && password.toString().isNotEmpty()
-        binding.btnLogin.isEnabled = result
+        val isTextFieldValid = isEmailValid && isPasswordValid
+        binding.btnLogin.isEnabled = result && isTextFieldValid
     }
+
 
 }

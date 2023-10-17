@@ -12,16 +12,16 @@ class MainActivity : AppCompatActivity() {
 
 
         val fragmentManager = supportFragmentManager
-        val searchUserFragment = LoginPage()
+        val welcomeFragment = WelcomePage()
         val fragment = fragmentManager
-            .findFragmentByTag(LoginPage::class.java.simpleName)
-        if (fragment !is LoginPage){
+            .findFragmentByTag(WelcomePage::class.java.simpleName)
+        if (fragment !is WelcomePage){
             fragmentManager
                 .beginTransaction()
                 .add(
                     R.id.frame_container,
-                    searchUserFragment,
-                    LoginPage::class.java.simpleName
+                    welcomeFragment,
+                    WelcomePage::class.java.simpleName
                 )
                 .commit()
         }

@@ -39,7 +39,7 @@ class EmailEditText : AppCompatEditText {
         })
     }
 
-    private fun isValidEmail(email: String): Boolean {
+    fun isValidEmail(email: String): Boolean {
         val pattern = Patterns.EMAIL_ADDRESS
         return pattern.matcher(email).matches()
     }
