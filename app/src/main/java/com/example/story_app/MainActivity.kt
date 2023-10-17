@@ -2,6 +2,7 @@ package com.example.story_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.story_app.ui.LoginPage
 import com.example.story_app.ui.WelcomePage
 
 class MainActivity : AppCompatActivity() {
@@ -11,16 +12,16 @@ class MainActivity : AppCompatActivity() {
 
 
         val fragmentManager = supportFragmentManager
-        val searchUserFragment = WelcomePage()
+        val searchUserFragment = LoginPage()
         val fragment = fragmentManager
-            .findFragmentByTag(WelcomePage::class.java.simpleName)
-        if (fragment !is WelcomePage){
+            .findFragmentByTag(LoginPage::class.java.simpleName)
+        if (fragment !is LoginPage){
             fragmentManager
                 .beginTransaction()
                 .add(
                     R.id.frame_container,
                     searchUserFragment,
-                    WelcomePage::class.java.simpleName
+                    LoginPage::class.java.simpleName
                 )
                 .commit()
         }
