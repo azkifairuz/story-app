@@ -10,7 +10,8 @@
         share your story in StoryKu
     </string>
     <string name="login_button">Login</string>
-    <string name="register_button">register</string>
-    <string name="text_email">email</string>
-    <string name="text_password">password</string>
+    <string name="register_button">Register</string>
+    <string name="text_email">Email</string>
+    <string name="text_password">Password</string>
+    <string name="text_name">Name</string>
 </resources>

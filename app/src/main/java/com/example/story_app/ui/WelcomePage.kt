@@ -33,5 +33,18 @@ class WelcomePage : Fragment() {
                 commit()
             }
         }
+        binding.registerBtn.setOnClickListener {
+            val registerFragment = RegisterPage()
+            val fragmentManager = parentFragmentManager
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.frame_container,
+                    registerFragment,
+                    RegisterPage::class.java.simpleName
+                )
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 }
