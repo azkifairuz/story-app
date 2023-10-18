@@ -32,7 +32,11 @@ class AuthViewmodel : ViewModel() {
                     )
                 }
                 _isLoading.value = false
+            } finally {
+                _isLoading.value = false
             }
         }
     }
+
+
 }

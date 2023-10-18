@@ -137,7 +137,7 @@ class RegisterPage : Fragment() {
         val isEmailValid = binding.emailEditText.isValidEmail(email.toString())
 
         val password = binding.passwordEditText.text
-        val isPasswordValid = binding.passwordEditText.editableText.toString().length >= 8
+        val isPasswordValid = binding.passwordEditText.editableText.length >= 8
 
         val name = binding.nameEditText.text
 
