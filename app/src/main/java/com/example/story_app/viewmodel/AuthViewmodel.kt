@@ -35,7 +35,7 @@ class AuthViewmodel : ViewModel() {
                 )
             } catch (e: Exception) {
                 e.message?.let {
-                    ErrorResponse(
+                    _registerResponse.value = ErrorResponse(
                         true,
                         it
                     )

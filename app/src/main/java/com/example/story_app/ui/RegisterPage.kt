@@ -40,16 +40,19 @@ class RegisterPage : Fragment() {
         }
 
         viewModel.registerResponse.observe(requireActivity()) { callback ->
-            Log.d("response msg", "${callback.error }")
             if (callback.error) {
                 if (callback.message.contains("400")) {
-                    Toast.makeText(requireActivity(),
-                        getString(R.string.email_already_used),
-                        Toast.LENGTH_SHORT).show()
-                    Log.d("response msg", callback.message)
+                    AlertDialog.Builder(requireActivity()).apply {
+                        setTitle(getString(R.string.email_already_used))
+                        setMessage(getString(R.string.text_message_email_used))
+                        setNeutralButton(getString(R.string.text_ok)) { _, _ ->
+                        }
+                        create()
+                        show()
+                    }
                 } else {
                     Toast.makeText(requireActivity(),
-                        getString(R.string.email_already_used),
+                        getString(R.string.request_time_out),
                         Toast.LENGTH_SHORT).show()
                 }
             } else {
