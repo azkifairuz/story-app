@@ -23,7 +23,7 @@ class AuthPreference(context: Context) {
         )
     }
 
-    fun logoutUser() {
+    fun logout() {
         val editor = preference.edit()
         editor.remove(USER_NAME)
         editor.remove(USER_ID)

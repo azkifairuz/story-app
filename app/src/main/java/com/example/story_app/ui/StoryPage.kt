@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.story_app.R
 
 
-class StoryFragment : Fragment() {
+class StoryPage : Fragment() {
 
 
     override fun onCreateView(

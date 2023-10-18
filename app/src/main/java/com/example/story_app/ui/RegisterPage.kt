@@ -57,13 +57,13 @@ class RegisterPage : Fragment() {
                     setTitle(getString(R.string.text_horee))
                     setMessage(getString(R.string.text_success_register))
                     setPositiveButton(getString(R.string.text_next)) { _, _ ->
-                        val welcomeFragment = WelcomePage()
+                        val loginFragment = LoginPage()
                         val fragmentManager = parentFragmentManager
                         fragmentManager.beginTransaction().apply {
                             replace(
                                 R.id.frame_container,
-                                welcomeFragment,
-                                WelcomePage::class.java.simpleName
+                                loginFragment,
+                                LoginPage::class.java.simpleName
                             )
                             addToBackStack(null)
                             commit()

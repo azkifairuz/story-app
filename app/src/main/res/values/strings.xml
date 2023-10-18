@@ -15,9 +15,16 @@
     <string name="text_password">Password</string>
     <string name="text_name">Name</string>
     <string name="text_horee">Horee!</string>
-    <string name="text_success_register">Anda berhasil Mendaftar</string>
+    <string name="text_failed">Failed!</string>
+    <string name="text_success_register">Register Success,lets login!</string>
+    <string name="text_success_login">Login Success,you can explore now!</string>
     <string name="text_next">Lanjut</string>
     <string name="email_already_used">email already used</string>
-    <string name="text_message_email_used">email already used, try to login with this email or register use anothe email</string>
+    <string name="text_message_email_used">
+        email already used, try to login with this email or register use another email
+    </string>
     <string name="request_time_out">time connection to long</string>
+    <string name="user_not_found">Email Not Register</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="text_ok">ok</string>
 </resources>
