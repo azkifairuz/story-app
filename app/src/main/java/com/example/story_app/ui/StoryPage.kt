@@ -50,7 +50,7 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
             arrayList.addAll(listStory)
             storyRv.adapter?.notifyDataSetChanged()
         }
-        viewModel.getListStory("Bearer $token")
+        viewModel.getListStory(token)
         Toast.makeText(requireContext(), token, Toast.LENGTH_SHORT).show()
         Log.e("tokeb", "token:$token ")
     }

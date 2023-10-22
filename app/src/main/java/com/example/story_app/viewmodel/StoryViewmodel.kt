@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.example.story_app.data.ApiConfig
 import com.example.story_app.data.response.ListStoryItem
 import com.example.story_app.data.response.StoryResponse
-import kotlinx.coroutines.Dispatchers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +22,7 @@ class StoryViewModel : ViewModel() {
 
     fun getListStory(token: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getAllStories(token)
+        val client = ApiConfig.getApiService(token).getAllStories()
         client.enqueue(object : Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
                _isLoading.value = false
