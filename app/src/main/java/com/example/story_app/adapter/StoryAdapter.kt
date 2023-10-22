@@ -36,6 +36,9 @@ class StoryAdapter(private val listStory: List<ListStoryItem>) :
         )
         holder.storyTitle.text = listStory[position].name
         holder.storyDesc.text = listStory[position].description
+        holder.itemView.setOnClickListener {
+            toDetailCallback.onItemClicked(listStory[position])
+        }
     }
 
     interface ToDetailCallback {

@@ -51,12 +51,24 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
             storyRv.adapter?.notifyDataSetChanged()
         }
         viewModel.getListStory(token)
-        Toast.makeText(requireContext(), token, Toast.LENGTH_SHORT).show()
-        Log.e("tokeb", "token:$token ")
     }
 
     override fun onItemClicked(story: ListStoryItem) {
-
+        val bundle = Bundle()
+        bundle.putString(DetailStoryPage.EXTRA_ID, story.id)
+        val detailFragment = DetailStoryPage()
+        detailFragment.arguments = bundle
+        val fragmentManager = parentFragmentManager
+        fragmentManager.beginTransaction().apply {
+            replace(
+                R.id.frame_container,
+                detailFragment,
+                DetailStoryPage::class.java.simpleName
+            )
+            addToBackStack(null)
+            commit()
+        }
+        Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading(isLoading: Boolean) {
