@@ -28,4 +28,8 @@
     <string name="invalid_password">Invalid password</string>
     <string name="text_ok">ok</string>
     <string name="desc_story_image">story image</string>
+    <string name="camera">camera</string>
+    <string name="camera_x">camera x</string>
+    <string name="galery">gallery</string>
+    <string name="upload">upload</string>
 </resources>
