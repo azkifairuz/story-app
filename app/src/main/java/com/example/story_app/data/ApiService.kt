@@ -3,6 +3,7 @@ package com.example.story_app.data
 import com.example.story_app.data.response.ErrorResponse
 import com.example.story_app.data.response.LoginResponse
 import com.example.story_app.data.response.StoryResponse
+import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -25,7 +26,7 @@ interface ApiService {
     ): LoginResponse
 
     @GET("stories")
-    suspend fun getAllStories(
+    fun getAllStories(
         @Header("Authorization") token: String,
-    ): StoryResponse
+    ): Call<StoryResponse>
 }

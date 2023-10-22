@@ -4,30 +4,43 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.example.story_app.data.ApiConfig
-import com.example.story_app.data.repo.StoryRepository
 import com.example.story_app.data.response.ListStoryItem
+import com.example.story_app.data.response.StoryResponse
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class StoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
+
+class StoryViewModel : ViewModel() {
 
     private var _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-    fun getStoryList() = liveData<ListStoryItem>(Dispatchers.IO) {
+
+    private var _listStory = MutableLiveData<List<ListStoryItem>>()
+    val listStory: LiveData<List<ListStoryItem>> = _listStory
+
+    fun getListStory(token: String) {
         _isLoading.value = true
-        try {
-            val storyResponse = storyRepository.getListStory()
-            _isLoading.value = false
+        val client = ApiConfig.getApiService().getAllStories(token)
+        client.enqueue(object : Callback<StoryResponse> {
+            override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
+               _isLoading.value = false
+                if (response.isSuccessful) {
+                    _listStory.value = response.body()?.listStory as List<ListStoryItem>?
+                } else {
+                    Log.e("isFailed Get Story", " ${response.message()}")
+                }
+            }
 
-        } catch (exception: Exception) {
-            _isLoading.value = false
-        }
+            override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e("onFailure Get Story", "onFailure: ${t.message.toString()}")
+            }
+
+        })
     }
-
 }
 
 

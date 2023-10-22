@@ -35,7 +35,7 @@ class StoryAdapter(private val listStory: List<ListStoryItem>) :
             listStory[position].photoUrl
         )
         holder.storyTitle.text = listStory[position].name
-        holder.storyTitle.text = listStory[position].description
+        holder.storyDesc.text = listStory[position].description
     }
 
     interface ToDetailCallback {
