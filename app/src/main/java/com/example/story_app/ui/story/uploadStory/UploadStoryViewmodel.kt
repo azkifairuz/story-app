@@ -1,4 +1,4 @@
-package com.example.story_app.viewmodel
+package com.example.story_app.ui.story.uploadStory
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,8 @@ import com.example.story_app.data.response.ErrorResponse
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class UploadStoryViewmodel : ViewModel() {
@@ -27,11 +28,11 @@ class UploadStoryViewmodel : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             val myFile = reduceFileImage(file)
-            val fileRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), myFile)
+            val fileRequestBody = myFile.asRequestBody("image/*".toMediaTypeOrNull())
             try {
                 val client = ApiConfig.getApiService(token).postStory(
                     MultipartBody.Part.createFormData("photo", file.name, fileRequestBody),
-                    RequestBody.create("text/plain".toMediaTypeOrNull(), description),
+                    description.toRequestBody("text/plain".toMediaTypeOrNull()),
                     null,
                     null
                 )

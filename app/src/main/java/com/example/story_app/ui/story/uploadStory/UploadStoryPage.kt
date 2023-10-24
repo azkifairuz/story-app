@@ -1,4 +1,4 @@
-package com.example.story_app.ui
+package com.example.story_app.ui.story.uploadStory
 
 import android.Manifest
 import android.app.Activity
@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,14 +15,14 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.story_app.R
 import com.example.story_app.data.local.AuthPreference
 import com.example.story_app.data.local.uriToFile
 import com.example.story_app.databinding.FragmentUploadStoryPageBinding
-import com.example.story_app.ui.CameraActivity.Companion.CAMERAX_RESULT
-import com.example.story_app.viewmodel.AuthViewmodel
-import com.example.story_app.viewmodel.UploadStoryViewmodel
+import com.example.story_app.ui.story.uploadStory.CameraActivity.Companion.CAMERAX_RESULT
+import com.example.story_app.ui.story.StoryPage
 import java.io.File
 
 class UploadStoryPage : Fragment() {
@@ -31,6 +30,7 @@ class UploadStoryPage : Fragment() {
     private var currentImageUri: Uri? = null
     private val viewModel: UploadStoryViewmodel by viewModels()
     private var imageVal: File? = null
+
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -53,7 +53,7 @@ class UploadStoryPage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentUploadStoryPageBinding.inflate(
             layoutInflater,
             container,
@@ -66,19 +66,25 @@ class UploadStoryPage : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val pref = AuthPreference(requireContext())
         val token = pref.getUser().token
+
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
+
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.cameraXButton.setOnClickListener { startCameraX() }
 
-        viewModel.isLoading.observe(requireActivity()){isLoading->
+        viewModel.isLoading.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
 
-        viewModel.responseBody.observe(requireActivity()){response->
+        viewModel.responseBody.observe(requireActivity()) { response ->
             if (response.error) {
-                Toast.makeText(requireContext(), getString(R.string.request_time_out), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.request_time_out),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
                 requireActivity().setResult(Activity.RESULT_OK)
                 Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
@@ -96,8 +102,9 @@ class UploadStoryPage : Fragment() {
 
             }
         }
+
         binding.uploadButton.setOnClickListener {
-           uploadImage(token)
+            uploadImage(token)
         }
 
 
@@ -128,32 +135,34 @@ class UploadStoryPage : Fragment() {
 
     private val cameraActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-          if (result.resultCode == CAMERAX_RESULT) {
-              currentImageUri =
-                  result.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
-              showImage()
-          }
+            if (result.resultCode == CAMERAX_RESULT) {
+                currentImageUri =
+                    result.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
+                showImage()
+            }
         }
 
     private fun showImage() {
         currentImageUri?.let {
-            imageVal = uriToFile(it,requireContext())
+            imageVal = uriToFile(it, requireContext())
             Log.d("Image URI", "showImage: $it")
             binding.previewImageView.setImageURI(it)
         }
     }
 
 
-    private fun uploadImage(token:String) {
+    private fun uploadImage(token: String) {
         viewModel.postStory(
             token,
             imageVal as File,
             binding.etDesc.editText?.text.toString(),
         )
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }

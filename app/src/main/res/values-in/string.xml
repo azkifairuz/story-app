@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Story-App</string>
-    <string name="hello_blank_fragment">Halo fragmen kosong</string>
     <string name="welcome_image">Gambar Selamat Datang</string>
     <string name="welcome_to_the_storyku">Selamat datang di StoryKu</string>
     <string name="storyku_desc">
@@ -22,7 +21,7 @@
     <string name="email_already_used">Surel sudah digunakan</string>
     <string name="text_message_email_used">
     Surel sudah digunakan, coba masuk dengan surel ini atau daftar menggunakan surel lain
-</string>
+    </string>
     <string name="request_time_out">Waktu koneksi terlalu lama</string>
     <string name="user_not_found">Surel tidak terdaftar</string>
     <string name="invalid_password">Kata sandi tidak valid</string>
@@ -32,9 +31,11 @@
     <string name="desc_story_image">Gambar cerita</string>
     <string name="camera">Kamera</string>
     <string name="camera_x">Kamera X</string>
-    <string name="galery">Galeri</string>
+    <string name="gallery">Galeri</string>
     <string name="upload">Unggah</string>
     <string name="text_confirm_dialog">Konfirmasi</string>
     <string name="exit_confirmation_message">Yakin ingin menutup aplikasi?</string>
     <string name="settings">pengaturan</string>
+    <string name="text_logout">keluar</string>
+
 </resources>

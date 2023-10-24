@@ -1,24 +1,20 @@
-package com.example.story_app.ui
+package com.example.story_app.ui.auth
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.transition.TransitionInflater
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.story_app.R
 import com.example.story_app.databinding.FragmentRegisterPageBinding
-import com.example.story_app.viewmodel.AuthViewmodel
 
 class RegisterPage : Fragment() {
     private val viewModel: AuthViewmodel by viewModels()
@@ -39,10 +35,13 @@ class RegisterPage : Fragment() {
         validateTextField()
 
         registerUsers()
-        viewModel.isLoading.observe(requireActivity()){isLoading->
+
+        viewModel.isLoading.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
+
         playAnimation()
+
         viewModel.registerResponse.observe(requireActivity()) { callback ->
             if (callback.error) {
                 if (callback.message.contains("400")) {
@@ -55,9 +54,11 @@ class RegisterPage : Fragment() {
                         show()
                     }
                 } else {
-                    Toast.makeText(requireActivity(),
+                    Toast.makeText(
+                        requireActivity(),
                         getString(R.string.request_time_out),
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
                 AlertDialog.Builder(requireActivity()).apply {
@@ -97,10 +98,12 @@ class RegisterPage : Fragment() {
             )
         }
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         setMyButtonEnable(isLoading)
     }
+
     private fun validateTextField() {
         setMyButtonEnable()
         binding.emailEditText.addTextChangedListener(object : TextWatcher {
@@ -151,7 +154,7 @@ class RegisterPage : Fragment() {
 
         val result = email.toString().isNotEmpty() && password.toString()
             .isNotEmpty() && name.toString().isNotEmpty()
-        val isLoading =  !isLoading
+        val isLoading = !isLoading
         val isTextFieldValid = isEmailValid && isPasswordValid
         binding.btnRegister.isEnabled = result && isTextFieldValid && isLoading
     }
@@ -178,7 +181,7 @@ class RegisterPage : Fragment() {
         val etPassword = ObjectAnimator
             .ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f)
             .setDuration(500)
-        val tvName= ObjectAnimator
+        val tvName = ObjectAnimator
             .ofFloat(binding.nameTextView, View.ALPHA, 1f)
             .setDuration(500)
         val etName = ObjectAnimator
@@ -189,16 +192,19 @@ class RegisterPage : Fragment() {
             .setDuration(500)
 
         val emailLayout = AnimatorSet().apply {
-            playTogether(tvEmail,etEmail)
+            playTogether(tvEmail, etEmail)
         }
+
         val pwLayout = AnimatorSet().apply {
-            playTogether(tvPassword,etPassword)
+            playTogether(tvPassword, etPassword)
         }
+
         val nameLayout = AnimatorSet().apply {
-            playTogether(tvName,etName)
+            playTogether(tvName, etName)
         }
+
         AnimatorSet().apply {
-            playSequentially(title,nameLayout,emailLayout,pwLayout,register)
+            playSequentially(title, nameLayout, emailLayout, pwLayout, register)
             start()
         }
     }

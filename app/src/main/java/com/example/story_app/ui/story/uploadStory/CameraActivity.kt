@@ -1,12 +1,12 @@
-package com.example.story_app.ui
+package com.example.story_app.ui.story.uploadStory
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.OrientationEventListener
 import android.view.Surface
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -114,10 +114,12 @@ class CameraActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onStart() {
         super.onStart()
         orientationEventListener.enable()
     }
+
     override fun onStop() {
         super.onStop()
         orientationEventListener.disable()

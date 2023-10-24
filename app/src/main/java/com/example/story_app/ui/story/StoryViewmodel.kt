@@ -1,4 +1,4 @@
-package com.example.story_app.viewmodel
+package com.example.story_app.ui.story
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -25,7 +25,7 @@ class StoryViewModel : ViewModel() {
         val client = ApiConfig.getApiService(token).getAllStories()
         client.enqueue(object : Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
-               _isLoading.value = false
+                _isLoading.value = false
                 if (response.isSuccessful) {
                     _listStory.value = response.body()?.listStory as List<ListStoryItem>?
                 } else {

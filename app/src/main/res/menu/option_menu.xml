@@ -8,5 +8,10 @@
             android:title="@string/settings"
             app:showAsAction="always"
             app:tint="?attr/colorPrimary" />
+        <item
+            android:id="@+id/logout"
+            android:title="@string/text_logout"
+            app:showAsAction="never"
+            app:tint="?attr/colorPrimary" />
     </group>
 </menu>

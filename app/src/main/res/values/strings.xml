@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">story-app</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_image">Welcome Image</string>
     <string name="welcome_to_the_storyku">Welcome to the StoryKu</string>
     <string name="storyku_desc">
@@ -32,9 +30,10 @@
     <string name="desc_story_image">story image</string>
     <string name="camera">camera</string>
     <string name="camera_x">camera x</string>
-    <string name="galery">gallery</string>
+    <string name="gallery">gallery</string>
     <string name="upload">upload</string>
     <string name="text_confirm_dialog">confirm</string>
     <string name="exit_confirmation_message">sure want to close app?</string>
     <string name="settings">settings</string>
+    <string name="text_logout">logout</string>
 </resources>

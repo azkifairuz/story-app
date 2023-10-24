@@ -48,7 +48,7 @@
         android:layout_marginStart="8dp"
         android:elevation="2dp"
         android:scaleType="fitCenter"
-        android:text="@string/galery"
+        android:text="@string/gallery"
         app:layout_constraintBottom_toTopOf="@+id/etDesc"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

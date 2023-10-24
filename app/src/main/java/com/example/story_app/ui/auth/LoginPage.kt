@@ -1,4 +1,4 @@
-package com.example.story_app.ui
+package com.example.story_app.ui.auth
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -7,16 +7,17 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.transition.TransitionInflater
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.story_app.R
 import com.example.story_app.databinding.FragmentLoginPageBinding
-import com.example.story_app.viewmodel.AuthViewmodel
+import com.example.story_app.ui.story.StoryPage
+import com.example.story_app.ui.WelcomePage
 
 
 class LoginPage : Fragment() {
@@ -27,8 +28,10 @@ class LoginPage : Fragment() {
     ): View {
         binding = FragmentLoginPageBinding.inflate(layoutInflater, container, false)
         val inflater = TransitionInflater.from(requireContext())
+
         exitTransition = inflater.inflateTransition(R.transition.slide_left)
         enterTransition = inflater.inflateTransition(R.transition.slide_right)
+
         return binding.root
     }
 
@@ -41,7 +44,7 @@ class LoginPage : Fragment() {
         viewModel.loginResponse.observe(requireActivity()) { callback ->
             if (callback.error) {
                 if (callback.message.contains("401")) {
-                   AlertDialog.Builder(requireActivity()).apply {
+                    AlertDialog.Builder(requireActivity()).apply {
                         setTitle(getString(R.string.text_failed))
                         setMessage(
                             "${getString(R.string.user_not_found)} or ${getString(R.string.invalid_password)} "
@@ -65,26 +68,23 @@ class LoginPage : Fragment() {
                     ).show()
                 }
             } else {
-                AlertDialog.Builder(requireActivity()).apply {
-                    setTitle(getString(R.string.text_horee))
-                    setMessage(getString(R.string.text_success_login))
-                    setPositiveButton(getString(R.string.text_next)) { _, _ ->
-                        val storyFragment = StoryPage()
-                        val fragmentManager = parentFragmentManager
-                        fragmentManager.beginTransaction().apply {
-                            replace(
-                                R.id.frame_container,
-                                storyFragment,
-                                StoryPage::class.java.simpleName
-                            )
-                            addToBackStack(null)
-                            commit()
+                Toast.makeText(
+                    requireActivity(),
+                    getString(R.string.text_success_login),
+                    Toast.LENGTH_SHORT
+                ).show()
 
-                        }
+                val storyFragment = StoryPage()
+                val fragmentManager = parentFragmentManager
 
-                    }
-                    create()
-                    show()
+                fragmentManager.beginTransaction().apply {
+                    replace(
+                        R.id.frame_container,
+                        storyFragment,
+                        StoryPage::class.java.simpleName
+                    )
+                    addToBackStack(null)
+                    commit()
                 }
             }
         }
@@ -92,8 +92,8 @@ class LoginPage : Fragment() {
         viewModel.isLoadingLogin.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
-        playAnimation()
 
+        playAnimation()
     }
 
     private fun loginUser() {
@@ -139,6 +139,7 @@ class LoginPage : Fragment() {
             }
         })
     }
+
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
             duration = 6000
@@ -166,13 +167,13 @@ class LoginPage : Fragment() {
             .setDuration(500)
 
         val emailLayout = AnimatorSet().apply {
-            playTogether(tvEmail,etEmail)
+            playTogether(tvEmail, etEmail)
         }
         val pwLayout = AnimatorSet().apply {
-            playTogether(tvPassword,etPassword)
+            playTogether(tvPassword, etPassword)
         }
         AnimatorSet().apply {
-            playSequentially(title,emailLayout,pwLayout,login)
+            playSequentially(title, emailLayout, pwLayout, login)
             start()
         }
     }

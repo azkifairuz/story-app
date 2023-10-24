@@ -1,4 +1,4 @@
-package com.example.story_app.viewmodel
+package com.example.story_app.ui.story.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData

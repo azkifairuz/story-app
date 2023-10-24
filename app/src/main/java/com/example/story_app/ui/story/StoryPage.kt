@@ -1,19 +1,17 @@
-package com.example.story_app.ui
+package com.example.story_app.ui.story
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
+import android.provider.Settings
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.ViewCompat
+import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +20,9 @@ import com.example.story_app.adapter.StoryAdapter
 import com.example.story_app.data.local.AuthPreference
 import com.example.story_app.data.response.ListStoryItem
 import com.example.story_app.databinding.FragmentStoryBinding
-import com.example.story_app.viewmodel.StoryViewModel
+import com.example.story_app.ui.WelcomePage
+import com.example.story_app.ui.story.detail.DetailStoryPage
+import com.example.story_app.ui.story.uploadStory.UploadStoryPage
 
 
 class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
@@ -34,7 +34,7 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,39 +43,54 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         super.onViewCreated(view, savedInstanceState)
         storyRv = binding.rvStory
         arrayList = ArrayList()
+
         val adapter = StoryAdapter(arrayList)
         adapter.setToDetailCallback(this)
+
         storyRv.adapter = adapter
         storyRv.layoutManager = LinearLayoutManager(requireContext())
+
         val pref = AuthPreference(requireContext())
         val token = pref.getUser().token
+
         viewModel.isLoading.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
+
         viewModel.listStory.observe(requireActivity()) { listStory ->
             arrayList.clear()
             arrayList.addAll(listStory)
             storyRv.adapter?.notifyDataSetChanged()
         }
+
         viewModel.getListStory(token)
-        binding.topAppBar.setOnMenuItemClickListener{menuItem ->
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.settings -> {
-                    val settingsFragment = SettingsPage()
+                    startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                    true
+                }
+
+                R.id.logout -> {
+                    pref.logout()
+                    val welcomePage = WelcomePage()
                     val fragmentManager = parentFragmentManager
                     fragmentManager.beginTransaction().apply {
                         replace(
                             R.id.frame_container,
-                            settingsFragment,
-                            SettingsPage::class.java.simpleName
+                            welcomePage,
+                            WelcomePage::class.java.simpleName
                         )
                         addToBackStack(null)
                         commit()
                     }
                     true
-                }else -> false
+                }
+
+                else -> false
             }
         }
+
         binding.fab.setOnClickListener {
             val uploadStoryFragment = UploadStoryPage()
             val fragmentManager = parentFragmentManager
@@ -100,36 +115,26 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
     ) {
         val bundle = Bundle()
         bundle.putString(DetailStoryPage.EXTRA_ID, story.id)
-        bundle.putString(
-            DetailStoryPage.EXTRA_TRANSITION_NAME_IMG,
-            ViewCompat.getTransitionName(imgStory)
-        )
-        bundle.putString(
-            DetailStoryPage.EXTRA_TRANSITION_NAME_TITLE,
-            ViewCompat.getTransitionName(storyTitle)
-        )
-        bundle.putString(
-            DetailStoryPage.EXTRA_TRANSITION_NAME_DESC,
-            ViewCompat.getTransitionName(storyDesc)
-        )
-        bundle.putString(DetailStoryPage.EXTRA_ID, story.id)
         val detailFragment = DetailStoryPage()
         detailFragment.arguments = bundle
+
         val fragmentManager = parentFragmentManager
         fragmentManager.beginTransaction().apply {
+            addSharedElement(imgStory, "image")
+            addSharedElement(storyTitle, "title")
+            addSharedElement(storyDesc, "desc")
             replace(
                 R.id.frame_container,
                 detailFragment,
-                DetailStoryPage::class.java.simpleName
+                DetailStoryPage::class.java.simpleName,
             )
             addToBackStack(null)
-            addSharedElement(imgStory, ViewCompat.getTransitionName(imgStory)!!)
-            addSharedElement(storyTitle, ViewCompat.getTransitionName(storyTitle)!!)
-            addSharedElement(storyDesc, ViewCompat.getTransitionName(storyDesc)!!)
-            commit()
+            commitAllowingStateLoss()
         }
 
-        Toast.makeText(requireContext(), "detail", Toast.LENGTH_SHORT).show()
+        imgStory.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
     }
 
 
@@ -140,7 +145,6 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
     override fun onResume() {
         super.onResume()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            // Handle back button press
             showExitConfirmationDialog()
         }
     }

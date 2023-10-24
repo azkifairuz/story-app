@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ErrorResponse(
 
-	@field:SerializedName("error")
-	val error: Boolean = true,
+    @field:SerializedName("error")
+    val error: Boolean = true,
 
-	@field:SerializedName("message")
-	val message: String = ""
+    @field:SerializedName("message")
+    val message: String = ""
 )

@@ -1,4 +1,4 @@
-package com.example.story_app.viewmodel
+package com.example.story_app.ui.auth
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -24,6 +24,7 @@ class AuthViewmodel : ViewModel() {
 
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> get() = _loginResponse
+
     fun registerUser(name: String, email: String, password: String) {
         _isLoading.value = true
         viewModelScope.launch {
@@ -76,4 +77,5 @@ class AuthViewmodel : ViewModel() {
             }
         }
     }
+
 }

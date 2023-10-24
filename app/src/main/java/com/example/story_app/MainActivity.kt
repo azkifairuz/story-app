@@ -1,10 +1,9 @@
 package com.example.story_app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.story_app.data.local.AuthPreference
-import com.example.story_app.ui.LoginPage
-import com.example.story_app.ui.StoryPage
+import com.example.story_app.ui.story.StoryPage
 import com.example.story_app.ui.WelcomePage
 
 class MainActivity : AppCompatActivity() {

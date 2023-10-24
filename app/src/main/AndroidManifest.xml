@@ -22,7 +22,7 @@
         android:theme="@style/Theme.Storyapp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.CameraActivity"
+            android:name=".ui.story.uploadStory.CameraActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
