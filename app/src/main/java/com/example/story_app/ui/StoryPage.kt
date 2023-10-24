@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,8 +72,26 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         }
     }
 
-    override fun onItemClicked(story: ListStoryItem) {
+    override fun onItemClicked(
+        story: ListStoryItem,
+        imgStory: ImageView,
+        storyTitle: TextView,
+        storyDesc: TextView
+    ) {
         val bundle = Bundle()
+        bundle.putString(DetailStoryPage.EXTRA_ID, story.id)
+        bundle.putString(
+            DetailStoryPage.EXTRA_TRANSITION_NAME_IMG,
+            ViewCompat.getTransitionName(imgStory)
+        )
+        bundle.putString(
+            DetailStoryPage.EXTRA_TRANSITION_NAME_TITLE,
+            ViewCompat.getTransitionName(storyTitle)
+        )
+        bundle.putString(
+            DetailStoryPage.EXTRA_TRANSITION_NAME_DESC,
+            ViewCompat.getTransitionName(storyDesc)
+        )
         bundle.putString(DetailStoryPage.EXTRA_ID, story.id)
         val detailFragment = DetailStoryPage()
         detailFragment.arguments = bundle
@@ -82,8 +103,12 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
                 DetailStoryPage::class.java.simpleName
             )
             addToBackStack(null)
+            addSharedElement(imgStory, ViewCompat.getTransitionName(imgStory)!!)
+            addSharedElement(storyTitle, ViewCompat.getTransitionName(storyTitle)!!)
+            addSharedElement(storyDesc, ViewCompat.getTransitionName(storyDesc)!!)
             commit()
         }
+
         Toast.makeText(requireContext(), "detail", Toast.LENGTH_SHORT).show()
     }
 

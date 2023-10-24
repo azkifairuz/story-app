@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="262dp"
             android:scaleType="centerCrop"
+            android:transitionName="image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,6 +24,7 @@
         <TextView
             android:id="@+id/tvTitle"
             style="@style/extra_large"
+            android:transitionName="title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -33,6 +35,7 @@
         <TextView
             android:id="@+id/tvDesc"
             style="@style/medium"
+            android:transitionName="desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

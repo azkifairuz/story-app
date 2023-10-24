@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Story-App</string>
+    <string name="hello_blank_fragment">Halo fragmen kosong</string>
+    <string name="welcome_image">Gambar Selamat Datang</string>
+    <string name="welcome_to_the_storyku">Selamat datang di StoryKu</string>
+    <string name="storyku_desc">
+    Ingin berbagi pengetahuan tentang Android, iOS,
+    Front End, Back End, Machine Learning, dan bidang IT lainnya?
+    Bagikan ceritamu di StoryKu
+    </string>
+    <string name="login_button">Masuk</string>
+    <string name="register_button">Daftar</string>
+    <string name="text_email">Surel</string>
+    <string name="text_password">Kata Sandi</string>
+    <string name="text_name">Nama</string>
+    <string name="text_horee">Horee!</string>
+    <string name="text_failed">Gagal!</string>
+    <string name="text_success_register">Pendaftaran berhasil, mari masuk!</string>
+    <string name="text_success_login">Login berhasil, Anda dapat menjelajah sekarang!</string>
+    <string name="text_next">Selanjutnya</string>
+    <string name="email_already_used">Surel sudah digunakan</string>
+    <string name="text_message_email_used">
+    Surel sudah digunakan, coba masuk dengan surel ini atau daftar menggunakan surel lain
+</string>
+    <string name="request_time_out">Waktu koneksi terlalu lama</string>
+    <string name="user_not_found">Surel tidak terdaftar</string>
+    <string name="invalid_password">Kata sandi tidak valid</string>
+    <string name="text_ok">OK</string>
+    <string name="text_yes">Ya</string>
+    <string name="text_no">Tidak</string>
+    <string name="desc_story_image">Gambar cerita</string>
+    <string name="camera">Kamera</string>
+    <string name="camera_x">Kamera X</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+    <string name="text_confirm_dialog">Konfirmasi</string>
+    <string name="exit_confirmation_message">Yakin ingin menutup aplikasi?</string>
+
+</resources>

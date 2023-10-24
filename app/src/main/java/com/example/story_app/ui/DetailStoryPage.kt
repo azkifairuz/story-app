@@ -1,10 +1,12 @@
 package com.example.story_app.ui
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import coil.load
 import com.example.story_app.data.local.AuthPreference
@@ -24,6 +26,8 @@ class DetailStoryPage : Fragment() {
             layoutInflater,
             container,
             false)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.move)
         return binding.root
     }
 
@@ -34,13 +38,22 @@ class DetailStoryPage : Fragment() {
         viewModel.isLoading.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
-
+        val imgStory = binding.imageView
+        val storyTitle = binding.tvTitle
+        val storyDesc = binding.tvDesc
         viewModel.detailStory.observe(requireActivity()) {detail->
-            binding.imageView.load(detail?.photoUrl)
-            binding.tvTitle.text = detail?.name
-            binding.tvDesc.text = detail?.description
+            imgStory.load(detail?.photoUrl)
+            storyTitle.text = detail?.name
+            storyDesc.text = detail?.description
         }
 
+        val transitionNameImg = arguments?.getString(EXTRA_TRANSITION_NAME_IMG)
+        val transitionNameTitle = arguments?.getString(EXTRA_TRANSITION_NAME_TITLE)
+        val transitionNameDesc = arguments?.getString(EXTRA_TRANSITION_NAME_DESC)
+
+        ViewCompat.setTransitionName(imgStory, transitionNameImg)
+        ViewCompat.setTransitionName(storyTitle, transitionNameTitle)
+        ViewCompat.setTransitionName(storyDesc, transitionNameDesc)
         arguments?.getString(EXTRA_ID)?.let { viewModel.getDetailStory(token, it) }
 
 
@@ -52,7 +65,8 @@ class DetailStoryPage : Fragment() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
-        const val EXTRA_TITLE = "extra_title"
-        const val EXTRA_DESC = "extra_desc"
+        const val EXTRA_TRANSITION_NAME_IMG = "extra_transition_name_img"
+        const val EXTRA_TRANSITION_NAME_TITLE = "extra_transition_name_title"
+        const val EXTRA_TRANSITION_NAME_DESC = "extra_transition_name_desc"
     }
 }
