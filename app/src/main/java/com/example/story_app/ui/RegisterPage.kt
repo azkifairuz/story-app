@@ -1,5 +1,7 @@
 package com.example.story_app.ui
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
@@ -95,6 +97,7 @@ class RegisterPage : Fragment() {
     }
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        setMyButtonEnable(isLoading)
     }
     private fun validateTextField() {
         setMyButtonEnable()
@@ -135,7 +138,7 @@ class RegisterPage : Fragment() {
         })
     }
 
-    private fun setMyButtonEnable() {
+    private fun setMyButtonEnable(isLoading: Boolean = false) {
         val email = binding.emailEditText.text
         val isEmailValid = binding.emailEditText.isValidEmail(email.toString())
 
@@ -146,8 +149,55 @@ class RegisterPage : Fragment() {
 
         val result = email.toString().isNotEmpty() && password.toString()
             .isNotEmpty() && name.toString().isNotEmpty()
-
+        val isLoading =  !isLoading
         val isTextFieldValid = isEmailValid && isPasswordValid
-        binding.btnRegister.isEnabled = result && isTextFieldValid
+        binding.btnRegister.isEnabled = result && isTextFieldValid && isLoading
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val register = ObjectAnimator
+            .ofFloat(binding.btnRegister, View.ALPHA, 1f)
+            .setDuration(500)
+        val tvEmail = ObjectAnimator
+            .ofFloat(binding.emailTextView, View.ALPHA, 1f)
+            .setDuration(500)
+        val etEmail = ObjectAnimator
+            .ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f)
+            .setDuration(500)
+        val tvPassword = ObjectAnimator
+            .ofFloat(binding.passwordTextView, View.ALPHA, 1f)
+            .setDuration(500)
+        val etPassword = ObjectAnimator
+            .ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f)
+            .setDuration(500)
+        val tvName= ObjectAnimator
+            .ofFloat(binding.nameTextView, View.ALPHA, 1f)
+            .setDuration(500)
+        val etName = ObjectAnimator
+            .ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f)
+            .setDuration(500)
+        val title = ObjectAnimator
+            .ofFloat(binding.titleTextView, View.ALPHA, 1f)
+            .setDuration(500)
+
+        val emailLayout = AnimatorSet().apply {
+            playTogether(tvEmail,etEmail)
+        }
+        val pwLayout = AnimatorSet().apply {
+            playTogether(tvPassword,etPassword)
+        }
+        val nameLayout = AnimatorSet().apply {
+            playTogether(tvName,etName)
+        }
+        AnimatorSet().apply {
+            playSequentially(title,nameLayout,emailLayout,pwLayout,register)
+            start()
+        }
     }
 }

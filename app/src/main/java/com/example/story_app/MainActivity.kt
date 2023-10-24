@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
 
         if (user.token.isNotEmpty()) {
-            // Pengguna sudah login, buka halaman utama
             val mainFragment = StoryPage()
             fragmentManager.beginTransaction()
                 .replace(
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                 )
                 .commit()
         } else {
-            // Pengguna belum login, buka halaman welcome atau login
             val welcomeFragment = WelcomePage()
             fragmentManager.beginTransaction()
                 .replace(

@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.example.story_app.R
 import com.example.story_app.databinding.FragmentLoginPageBinding
@@ -183,5 +184,22 @@ class LoginPage : Fragment() {
         val result = email.toString().isNotEmpty() && password.toString().isNotEmpty()
         val isTextFieldValid = isEmailValid && isPasswordValid
         binding.btnLogin.isEnabled = result && isTextFieldValid && isLoading
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            val welcomeFragment = WelcomePage()
+            val fragmentManager = parentFragmentManager
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.frame_container,
+                    welcomeFragment,
+                    WelcomePage::class.java.simpleName
+                )
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 }

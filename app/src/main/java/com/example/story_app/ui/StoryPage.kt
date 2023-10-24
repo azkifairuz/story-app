@@ -84,7 +84,7 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
             addToBackStack(null)
             commit()
         }
-        Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "detail", Toast.LENGTH_SHORT).show()
     }
 
 
