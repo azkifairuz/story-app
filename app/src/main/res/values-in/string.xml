@@ -32,9 +32,9 @@
     <string name="desc_story_image">Gambar cerita</string>
     <string name="camera">Kamera</string>
     <string name="camera_x">Kamera X</string>
-    <string name="gallery">Galeri</string>
+    <string name="galery">Galeri</string>
     <string name="upload">Unggah</string>
     <string name="text_confirm_dialog">Konfirmasi</string>
     <string name="exit_confirmation_message">Yakin ingin menutup aplikasi?</string>
-
+    <string name="settings">pengaturan</string>
 </resources>

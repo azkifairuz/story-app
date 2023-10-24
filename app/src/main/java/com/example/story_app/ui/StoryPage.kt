@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -56,7 +58,24 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
             storyRv.adapter?.notifyDataSetChanged()
         }
         viewModel.getListStory(token)
-
+        binding.topAppBar.setOnMenuItemClickListener{menuItem ->
+            when (menuItem.itemId) {
+                R.id.settings -> {
+                    val settingsFragment = SettingsPage()
+                    val fragmentManager = parentFragmentManager
+                    fragmentManager.beginTransaction().apply {
+                        replace(
+                            R.id.frame_container,
+                            settingsFragment,
+                            SettingsPage::class.java.simpleName
+                        )
+                        addToBackStack(null)
+                        commit()
+                    }
+                    true
+                }else -> false
+            }
+        }
         binding.fab.setOnClickListener {
             val uploadStoryFragment = UploadStoryPage()
             val fragmentManager = parentFragmentManager
@@ -71,6 +90,7 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
             }
         }
     }
+
 
     override fun onItemClicked(
         story: ListStoryItem,

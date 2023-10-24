@@ -47,9 +47,9 @@ class StoryAdapter(private val listStory: List<ListStoryItem>) :
         storyTitle.text = listStory[position].name
         storyDesc.text = listStory[position].description
 
-        ViewCompat.setTransitionName(imgStory, "profile_${position}")
-        ViewCompat.setTransitionName(storyTitle, "name_${position}")
-        ViewCompat.setTransitionName(storyDesc, "description_${position}")
+        ViewCompat.setTransitionName(imgStory, "image")
+        ViewCompat.setTransitionName(storyTitle, "title")
+        ViewCompat.setTransitionName(storyDesc, "desc")
 
         holder.itemView.setOnClickListener {
             toDetailCallback.onItemClicked(listStory[position],imgStory, storyTitle, storyDesc)

@@ -36,4 +36,5 @@
     <string name="upload">upload</string>
     <string name="text_confirm_dialog">confirm</string>
     <string name="exit_confirmation_message">sure want to close app?</string>
+    <string name="settings">settings</string>
 </resources>
