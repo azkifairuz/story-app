@@ -61,4 +61,12 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.0")
+
+    val cameraxVersion = "1.2.3"
+    //noinspection GradleDependency
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    //noinspection GradleDependency
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    //noinspection GradleDependency
+    implementation("androidx.camera:camera-view:$cameraxVersion")
 }

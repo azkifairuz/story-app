@@ -51,6 +51,20 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
             storyRv.adapter?.notifyDataSetChanged()
         }
         viewModel.getListStory(token)
+
+        binding.fab.setOnClickListener {
+            val uploadStoryFragment = UploadStoryPage()
+            val fragmentManager = parentFragmentManager
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.frame_container,
+                    uploadStoryFragment,
+                    UploadStoryPage::class.java.simpleName
+                )
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 
     override fun onItemClicked(story: ListStoryItem) {

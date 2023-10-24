@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import coil.load
-import com.example.story_app.R
 import com.example.story_app.data.local.AuthPreference
 import com.example.story_app.databinding.FragmentDetailStoryPageBinding
 import com.example.story_app.viewmodel.DetailStoryViewmodel
-import com.example.story_app.viewmodel.StoryViewModel
+
 
 class DetailStoryPage : Fragment() {
     lateinit var binding: FragmentDetailStoryPageBinding
