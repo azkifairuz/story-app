@@ -2,11 +2,14 @@ package com.example.story_app.ui
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import com.example.story_app.R
 import com.example.story_app.databinding.FragmentWelcomePageBinding
 
@@ -17,6 +20,9 @@ class WelcomePage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWelcomePageBinding.inflate(layoutInflater,container,false)
+        val inflater = TransitionInflater.from(requireContext())
+        exitTransition = inflater.inflateTransition(R.transition.slide_left)
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
         return binding.root
     }
 

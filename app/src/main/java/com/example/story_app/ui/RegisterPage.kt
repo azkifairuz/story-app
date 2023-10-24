@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.transition.TransitionInflater
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,9 +27,10 @@ class RegisterPage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterPageBinding.inflate(layoutInflater, container, false)
+        val inflater = TransitionInflater.from(requireContext())
+        exitTransition = inflater.inflateTransition(R.transition.slide_left)
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +42,7 @@ class RegisterPage : Fragment() {
         viewModel.isLoading.observe(requireActivity()){isLoading->
             showLoading(isLoading)
         }
-
+        playAnimation()
         viewModel.registerResponse.observe(requireActivity()) { callback ->
             if (callback.error) {
                 if (callback.message.contains("400")) {
