@@ -8,7 +8,6 @@ import com.example.story_app.data.ApiConfig
 import com.example.story_app.data.local.reduceFileImage
 import com.example.story_app.data.response.ErrorResponse
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -24,14 +23,13 @@ class UploadStoryViewmodel : ViewModel() {
     val responseBody: LiveData<ErrorResponse>
         get() = _responseBody
 
-    fun postStory(token: String, file: File, description: String {
+    fun postStory(token: String, file: File, description: String) {
         viewModelScope.launch {
             _isLoading.value = true
             val myFile = reduceFileImage(file)
             val fileRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), myFile)
             try {
-                val client = ApiConfig.getApiService().postStory(
-                    token,
+                val client = ApiConfig.getApiService(token).postStory(
                     MultipartBody.Part.createFormData("photo", file.name, fileRequestBody),
                     RequestBody.create("text/plain".toMediaTypeOrNull(), description),
                     null,
@@ -43,7 +41,6 @@ class UploadStoryViewmodel : ViewModel() {
                         client.message
                     )
                 } else {
-                    //success response
                     _responseBody.value = client
                 }
 
@@ -58,4 +55,5 @@ class UploadStoryViewmodel : ViewModel() {
 
         }
     }
+
 }

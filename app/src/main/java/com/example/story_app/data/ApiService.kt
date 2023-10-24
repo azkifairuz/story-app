@@ -41,7 +41,6 @@ interface ApiService {
     @POST("stories")
     @Multipart()
     suspend fun postStory(
-        @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
         @Part("lat") lat: RequestBody?,
