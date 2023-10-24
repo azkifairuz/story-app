@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -85,7 +87,32 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
     }
 
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle back button press
+            showExitConfirmationDialog()
+        }
+    }
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(getString(R.string.text_confirm_dialog))
+            setMessage(getString(R.string.exit_confirmation_message))
+            setPositiveButton(getString(R.string.text_yes)) { _, _ ->
+                requireActivity().finishAffinity()
+            }
+            setNegativeButton(getString(R.string.text_no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            create()
+            show()
+        }
+    }
+
 }

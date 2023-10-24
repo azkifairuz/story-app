@@ -27,9 +27,13 @@
     <string name="user_not_found">Email Not Register</string>
     <string name="invalid_password">Invalid password</string>
     <string name="text_ok">ok</string>
+    <string name="text_yes">yes</string>
+    <string name="text_no">no</string>
     <string name="desc_story_image">story image</string>
     <string name="camera">camera</string>
     <string name="camera_x">camera x</string>
     <string name="galery">gallery</string>
     <string name="upload">upload</string>
+    <string name="text_confirm_dialog">confirm</string>
+    <string name="exit_confirmation_message">sure want to close app?</string>
 </resources>
