@@ -1,39 +1,42 @@
 package com.example.story_app.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-
+import kotlinx.parcelize.Parcelize
+@Parcelize
 data class DetailStoryResponse(
 
     @field:SerializedName("error")
-    val error: Boolean? = null,
+    val error: Boolean,
 
     @field:SerializedName("message")
-    val message: String? = null,
+    val message: String,
 
     @field:SerializedName("story")
-    val story: Story? = null
-)
+    val story: Story?
+):Parcelable
 
+@Parcelize
 data class Story(
 
     @field:SerializedName("photoUrl")
-    val photoUrl: String? = null,
+    val photoUrl: String,
 
     @field:SerializedName("createdAt")
-    val createdAt: String? = null,
+    val createdAt: String ,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    val name: String,
 
     @field:SerializedName("description")
-    val description: String? = null,
+    val description: String,
 
     @field:SerializedName("lon")
     val lon: Double? = null,
 
     @field:SerializedName("id")
-    val id: String? = null,
+    val id: String ,
 
     @field:SerializedName("lat")
     val lat: Double? = null
-)
+):Parcelable

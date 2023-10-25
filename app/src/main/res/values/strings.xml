@@ -36,4 +36,7 @@
     <string name="exit_confirmation_message">sure want to close app?</string>
     <string name="settings">settings</string>
     <string name="text_logout">logout</string>
+    <string name="refresh">Refresh</string>
+    <string name="title">Title</string>
+    <string name="desc">Desc</string>
 </resources>

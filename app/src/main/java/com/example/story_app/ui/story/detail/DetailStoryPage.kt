@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
+import com.example.story_app.R
 import com.example.story_app.data.local.AuthPreference
 import com.example.story_app.databinding.FragmentDetailStoryPageBinding
 
@@ -47,15 +49,18 @@ class DetailStoryPage : Fragment() {
         val imgStory = binding.imageView
         val storyTitle = binding.tvTitle
         val storyDesc = binding.tvDesc
-        viewModel.detailStory.observe(requireActivity()) { detail ->
-            imgStory.load(detail?.photoUrl)
-            storyTitle.text = detail?.name
-            storyDesc.text = detail?.description
-        }
-
-
-
         arguments?.getString(EXTRA_ID)?.let { viewModel.getDetailStory(token, it) }
+        viewModel.detailStory.observe(requireActivity()) { detail ->
+           if (detail?.error == true){
+               imgStory.load(arguments?.getString(EXTRA_ID))
+               storyTitle.text = arguments?.getString(EXTRA_TITLE)
+               storyDesc.text = arguments?.getString(EXTRA_DESC)
+           }else{
+               imgStory.load(detail?.story?.photoUrl)
+               storyTitle.text = detail?.story?.name
+               storyDesc.text = detail?.story?.description
+           }
+        }
 
     }
 
@@ -65,6 +70,10 @@ class DetailStoryPage : Fragment() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
+        const val EXTRA_TITLE="extra_title"
+        const val EXTRA_DESC = "extra_desc"
+        const val EXTRA_PHOTO = "extra_photo"
+
 
     }
 }

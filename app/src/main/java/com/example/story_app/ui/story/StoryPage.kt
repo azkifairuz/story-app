@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.doOnPreDraw
@@ -62,7 +63,6 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
             arrayList.addAll(listStory)
             storyRv.adapter?.notifyDataSetChanged()
         }
-
         viewModel.getListStory(token)
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -70,7 +70,11 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
                     startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                     true
                 }
-
+                R.id.btnRefresh -> {
+                    viewModel.getListStory(token)
+                    Toast.makeText(requireContext(), "refreshed", Toast.LENGTH_SHORT).show()
+                    true
+                }
                 R.id.logout -> {
                     pref.logout()
                     val welcomePage = WelcomePage()
@@ -114,9 +118,12 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         storyDesc: TextView
     ) {
         val bundle = Bundle()
-        bundle.putString(DetailStoryPage.EXTRA_ID, story.id)
         val detailFragment = DetailStoryPage()
         detailFragment.arguments = bundle
+        bundle.putString(DetailStoryPage.EXTRA_ID, story.id)
+        bundle.putString(DetailStoryPage.EXTRA_TITLE, story.name)
+        bundle.putString(DetailStoryPage.EXTRA_DESC, story.description)
+        bundle.putString(DetailStoryPage.EXTRA_PHOTO, story.photoUrl)
 
         val fragmentManager = parentFragmentManager
         fragmentManager.beginTransaction().apply {

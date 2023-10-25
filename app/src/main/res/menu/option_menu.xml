@@ -9,6 +9,12 @@
             app:showAsAction="always"
             app:tint="?attr/colorPrimary" />
         <item
+            android:id="@+id/btnRefresh"
+            android:title="@string/refresh"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/baseline_refresh_24"
+            app:tint="?attr/colorPrimary" />
+        <item
             android:id="@+id/logout"
             android:title="@string/text_logout"
             app:showAsAction="never"
