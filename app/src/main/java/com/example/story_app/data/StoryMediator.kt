@@ -1,24 +1,19 @@
-package com.example.story_app
+package com.example.story_app.data
 
-import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.example.story_app.data.ApiService
 import com.example.story_app.data.database.RemoteKeys
 import com.example.story_app.data.database.StoryDb
 import com.example.story_app.data.response.ListStoryItem
 import com.example.story_app.data.response.ListStoryItemWithMap
-import com.example.story_app.data.response.LoginResult
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
     private val database: StoryDb,
     private val apiService: ApiService,
-    private val user: LoginResult,
-    private val context: Context,
 ) : RemoteMediator<Int, ListStoryItem>() {
 
     private companion object {

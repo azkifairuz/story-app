@@ -7,7 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.example.story_app.StoryRemoteMediator
+import com.example.story_app.data.StoryRemoteMediator
 import com.example.story_app.data.ApiService
 import com.example.story_app.data.database.StoryDb
 import com.example.story_app.data.response.ListStoryItem
@@ -26,7 +26,7 @@ class StoryRepository(
             config = PagingConfig(
                 pageSize = 5
             ),
-            remoteMediator = StoryRemoteMediator(storyDatabase, apiService, user, context),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = {
                 storyDatabase.storyDao().getAllStory()
             }
