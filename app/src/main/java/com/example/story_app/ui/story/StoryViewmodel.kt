@@ -28,6 +28,7 @@ class StoryViewModel : ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _listStory.value = response.body()?.listStory as List<ListStoryItem>?
+                    Log.d("story", "onResponse: ${_listStory.value}")
                 } else {
                     Log.e("isFailed Get Story", " ${response.message()}")
                 }

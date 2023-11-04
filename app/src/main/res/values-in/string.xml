@@ -37,5 +37,9 @@
     <string name="exit_confirmation_message">Yakin ingin menutup aplikasi?</string>
     <string name="settings">pengaturan</string>
     <string name="text_logout">keluar</string>
-
+    <string name="refresh">Muat Ulang</string>
+    <string name="title">Judul</string>
+    <string name="desc">Deskripsi</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">maps</string>
 </resources>

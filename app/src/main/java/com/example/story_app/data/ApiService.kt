@@ -14,6 +14,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @FormUrlEncoded
@@ -32,7 +33,11 @@ interface ApiService {
     ): LoginResponse
 
     @GET("stories")
-    fun getAllStories(): Call<StoryResponse>
+    fun getAllStories(
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+        @Query("location") location: Int = 1,
+    ): Call<StoryResponse>
 
     @GET("stories/{id}")
     fun detailStory(
