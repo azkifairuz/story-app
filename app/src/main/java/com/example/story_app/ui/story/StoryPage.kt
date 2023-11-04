@@ -21,6 +21,7 @@ import com.example.story_app.adapter.StoryAdapter
 import com.example.story_app.data.local.AuthPreference
 import com.example.story_app.data.response.ListStoryItem
 import com.example.story_app.databinding.FragmentStoryBinding
+import com.example.story_app.ui.MapsActivity
 import com.example.story_app.ui.WelcomePage
 import com.example.story_app.ui.story.detail.DetailStoryPage
 import com.example.story_app.ui.story.uploadStory.UploadStoryPage
@@ -70,11 +71,13 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
                     startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                     true
                 }
+
                 R.id.btnRefresh -> {
                     viewModel.getListStory(token)
                     Toast.makeText(requireContext(), "refreshed", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 R.id.logout -> {
                     pref.logout()
                     val welcomePage = WelcomePage()
@@ -91,6 +94,11 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
                     true
                 }
 
+                R.id.maps -> {
+                    val intent = Intent(requireActivity(), MapsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 else -> false
             }
         }

@@ -3,10 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:menuCategory="container">
         <item
+            android:id="@+id/maps"
+            android:title="@string/maps"
+            android:icon="@drawable/baseline_map_24"
+            app:showAsAction="ifRoom"
+            app:tint="?attr/colorPrimary" />
+        <item
             android:id="@+id/settings"
-            android:icon="@drawable/baseline_settings_24"
+            android:icon="@drawable/baseline_language_24"
             android:title="@string/settings"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
+            app:tint="?attr/colorPrimary" />
+        <item
+            android:id="@+id/logout"
+            android:title="@string/text_logout"
+            android:icon="@drawable/ic_logout"
+            app:showAsAction="ifRoom"
             app:tint="?attr/colorPrimary" />
         <item
             android:id="@+id/btnRefresh"
@@ -14,10 +26,7 @@
             app:showAsAction="ifRoom"
             android:icon="@drawable/baseline_refresh_24"
             app:tint="?attr/colorPrimary" />
-        <item
-            android:id="@+id/logout"
-            android:title="@string/text_logout"
-            app:showAsAction="never"
-            app:tint="?attr/colorPrimary" />
+
+
     </group>
 </menu>

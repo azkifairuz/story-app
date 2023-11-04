@@ -39,4 +39,6 @@
     <string name="refresh">Refresh</string>
     <string name="title">Title</string>
     <string name="desc">Desc</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">maps</string>
 </resources>
