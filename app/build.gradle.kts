@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -66,9 +67,14 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.activity:activity-ktx:1.8.0")
 
+    //room
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation ("androidx.room:room-ktx:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
+    
     val cameraxVersion = "1.2.3"
     //noinspection GradleDependency
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
@@ -76,4 +82,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     //noinspection GradleDependency
     implementation("androidx.camera:camera-view:$cameraxVersion")
+
+    //pagination
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 }

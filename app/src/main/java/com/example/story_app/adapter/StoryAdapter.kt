@@ -8,13 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.story_app.data.response.ListStoryItem
+import com.example.story_app.data.response.StoryResponse
 import com.example.story_app.databinding.StoryCardBinding
 
 class StoryAdapter(private val listStory: List<ListStoryItem>) :
-    RecyclerView.Adapter<StoryAdapter.ListViewHolder>() {
+    PagingDataAdapter<ListStoryItem, StoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
     private lateinit var toDetailCallback: ToDetailCallback
 
     fun setToDetailCallback(toDetailCallback: ToDetailCallback) {
@@ -63,5 +66,20 @@ class StoryAdapter(private val listStory: List<ListStoryItem>) :
             storyTitle: TextView,
             storyDesc: TextView
         )
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
+            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(
+                oldItem: ListStoryItem,
+                newItem: ListStoryItem
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.story_app.R
@@ -25,6 +26,8 @@ import com.example.story_app.ui.MapsActivity
 import com.example.story_app.ui.WelcomePage
 import com.example.story_app.ui.story.detail.DetailStoryPage
 import com.example.story_app.ui.story.uploadStory.UploadStoryPage
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
@@ -58,7 +61,11 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         viewModel.isLoading.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
-
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.storyFlow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
         viewModel.listStory.observe(requireActivity()) { listStory ->
             arrayList.clear()
             arrayList.addAll(listStory)
