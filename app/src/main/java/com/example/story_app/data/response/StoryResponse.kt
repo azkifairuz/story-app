@@ -27,7 +27,7 @@ data class ListStoryItem(
     val photoUrl: String,
 
     @field:SerializedName("createdAt")
-    val createdAt: String,
+    val createdAt: String? = null,
 
     @field:SerializedName("name")
     val name: String,
@@ -53,7 +53,7 @@ data class ListStoryItemWithMap(
     val photoUrl: String,
 
     @field:SerializedName("createdAt")
-    val createdAt: String,
+    val createdAt: String? = null,
 
     @field:SerializedName("name")
     val name: String,
