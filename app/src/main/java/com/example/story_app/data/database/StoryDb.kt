@@ -1,7 +1,9 @@
 package com.example.story_app.data.database
 
 import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.example.story_app.data.response.ListStoryItem
+import com.example.story_app.data.response.ListStoryItemWithMap
 
 
 @Database(
@@ -9,5 +11,7 @@ import com.example.story_app.data.response.ListStoryItem
     version = 2,
     exportSchema = false
 )
-class StoryDb {
+abstract class StoryDb: RoomDatabase() {
+    abstract fun storyDao(): StoryDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 }
