@@ -71,10 +71,11 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.0")
 
     //room
-    implementation("androidx.room:room-runtime:2.5.2")
-    implementation ("androidx.room:room-ktx:2.5.2")
-    ksp("androidx.room:room-compiler:2.5.2")
-    
+    implementation("androidx.room:room-runtime:2.6.0")
+    implementation ("androidx.room:room-ktx:2.6.0")
+    implementation("androidx.room:room-paging:2.6.0")
+    ksp("androidx.room:room-compiler:2.6.0")
+
     val cameraxVersion = "1.2.3"
     //noinspection GradleDependency
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
@@ -84,5 +85,5 @@ dependencies {
     implementation("androidx.camera:camera-view:$cameraxVersion")
 
     //pagination
-    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 }

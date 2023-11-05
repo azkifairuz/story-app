@@ -1,5 +1,7 @@
 package com.example.story_app.data
 
+import android.content.Context
+import com.example.story_app.data.local.AuthPreference
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

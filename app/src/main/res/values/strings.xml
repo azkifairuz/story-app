@@ -42,5 +42,6 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="maps">maps</string>
     <string name="map_id" translatable="false">f338efbd36c3cc2b</string>
+    <string name="retry">retry</string>
 
 </resources>

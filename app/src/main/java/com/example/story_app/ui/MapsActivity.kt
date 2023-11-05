@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import com.example.story_app.R
 import com.example.story_app.data.local.AuthPreference
 import com.example.story_app.data.response.ListStoryItem
@@ -16,7 +17,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.story_app.databinding.ActivityMapsBinding
 import com.example.story_app.ui.story.StoryViewModel
+import com.example.story_app.ui.story.ViewmodelFactory
 import com.google.android.gms.maps.model.LatLngBounds
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -24,7 +29,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapsBinding
     private var boundsBuilder = LatLngBounds.Builder()
     private val indonesianBounds = ArrayList<ListStoryItem>()
-    private val viewModel: StoryViewModel by viewModels()
+    private val viewModel: StoryViewModel by viewModels {
+        ViewmodelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +53,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isIndoorLevelPickerEnabled = true
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
-        viewModel.listStory.observe(this) { list ->
+        viewModel.listStoryMap.observe(this) { list ->
             list.map { item ->
                 if (item.lat!! > -11.00 && item.lat < 6.00 && item.lon!! > 95.00 && item.lon < 141.00) {
                     indonesianBounds.add(item)
@@ -80,8 +87,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
             }
         }
-        viewModel.getListStory(token)
+        GlobalScope.launch(Dispatchers.Main) {
+            // Assuming you have a token variable to pass
 
+
+            // Call the suspend function
+            viewModel.getListStoryMap(token)
+        }
 
     }
 }

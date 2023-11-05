@@ -3,6 +3,7 @@ package com.example.story_app.ui.story
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,11 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.story_app.R
+import com.example.story_app.adapter.LoadingStateAdapter
 import com.example.story_app.adapter.StoryAdapter
 import com.example.story_app.data.local.AuthPreference
 import com.example.story_app.data.response.ListStoryItem
@@ -34,7 +37,10 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
     private lateinit var binding: FragmentStoryBinding
     private lateinit var storyRv: RecyclerView
     private lateinit var arrayList: ArrayList<ListStoryItem>
-    private val viewModel: StoryViewModel by viewModels()
+    private val viewModel: StoryViewModel by viewModels {
+        ViewmodelFactory(requireContext())
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,29 +55,45 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         storyRv = binding.rvStory
         arrayList = ArrayList()
 
-        val adapter = StoryAdapter(arrayList)
+        val adapter = StoryAdapter()
         adapter.setToDetailCallback(this)
 
-        storyRv.adapter = adapter
+//        storyRv.adapter = adapter
         storyRv.layoutManager = LinearLayoutManager(requireContext())
 
         val pref = AuthPreference(requireContext())
         val token = pref.getUser().token
-
+        getData()
         viewModel.isLoading.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.storyFlow.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
-            }
-        }
-        viewModel.listStory.observe(requireActivity()) { listStory ->
-            arrayList.clear()
-            arrayList.addAll(listStory)
-            storyRv.adapter?.notifyDataSetChanged()
-        }
-        viewModel.getListStory(token)
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewModel.storyFlow.collectLatest { pagingData ->
+//                adapter.submitData(pagingData)
+//            }
+//        }
+//        viewModel.story.observe(requireActivity()) {
+//            if (it != null) {
+//                Log.d("StoryFragment", "LiveData observer block executed: $it")
+//
+//                adapter.submitData(lifecycle, it)
+//            }
+//            Log.d("StoryFragment", "naon")
+//        }
+
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewModel.listStory.value?.collectLatest { pagingData ->
+//                Log.d("StoryFragment", "LiveData observer block executed")
+//                adapter.submitData(viewLifecycleOwner.lifecycle,pagingData)
+//            }
+//        }
+//        viewModel.listStory.observe(requireActivity()) { listStory ->
+//            arrayList.clear()
+//            arrayList.addAll(listStory)
+//            storyRv.adapter?.notifyDataSetChanged()
+//        }
+
+//        viewModel.getListStory(token)
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.settings -> {
@@ -80,7 +102,6 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
                 }
 
                 R.id.btnRefresh -> {
-                    viewModel.getListStory(token)
                     Toast.makeText(requireContext(), "refreshed", Toast.LENGTH_SHORT).show()
                     true
                 }
@@ -125,7 +146,23 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         }
     }
 
+    private fun getData() {
+        val adapter = StoryAdapter()
+        binding.rvStory.adapter = adapter
+        adapter.setToDetailCallback(
+            this
+        )
+        viewModel.story.observe(requireActivity()) { paging ->
+            if (paging != null){
+                adapter.submitData(lifecycle, paging)
+                adapter.notifyDataSetChanged()
+                Log.d("ANYING", "getData: $paging ")
+            }else{
+                Log.e("anying", "gagal. ")
+            }
 
+        }
+    }
     override fun onItemClicked(
         story: ListStoryItem,
         imgStory: ImageView,
