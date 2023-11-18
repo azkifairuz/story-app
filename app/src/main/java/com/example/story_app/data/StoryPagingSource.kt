@@ -26,7 +26,7 @@ class StoryPagingSource(private val apiService: ApiService): PagingSource<Int, L
             val response= responseData.listStory
             Log.d("StoryPagingSource", "Loaded data for page: $position")
             LoadResult.Page(
-                data = responseData.listStory ,
+                data = response ,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
                 nextKey = position + 1
             )

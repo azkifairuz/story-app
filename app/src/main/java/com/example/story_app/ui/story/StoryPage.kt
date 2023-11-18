@@ -58,42 +58,13 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
         val adapter = StoryAdapter()
         adapter.setToDetailCallback(this)
 
-//        storyRv.adapter = adapter
         storyRv.layoutManager = LinearLayoutManager(requireContext())
 
         val pref = AuthPreference(requireContext())
-        val token = pref.getUser().token
         getData()
         viewModel.isLoading.observe(requireActivity()) { isLoading ->
             showLoading(isLoading)
         }
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewModel.storyFlow.collectLatest { pagingData ->
-//                adapter.submitData(pagingData)
-//            }
-//        }
-//        viewModel.story.observe(requireActivity()) {
-//            if (it != null) {
-//                Log.d("StoryFragment", "LiveData observer block executed: $it")
-//
-//                adapter.submitData(lifecycle, it)
-//            }
-//            Log.d("StoryFragment", "naon")
-//        }
-
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewModel.listStory.value?.collectLatest { pagingData ->
-//                Log.d("StoryFragment", "LiveData observer block executed")
-//                adapter.submitData(viewLifecycleOwner.lifecycle,pagingData)
-//            }
-//        }
-//        viewModel.listStory.observe(requireActivity()) { listStory ->
-//            arrayList.clear()
-//            arrayList.addAll(listStory)
-//            storyRv.adapter?.notifyDataSetChanged()
-//        }
-
-//        viewModel.getListStory(token)
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.settings -> {
@@ -102,6 +73,7 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
                 }
 
                 R.id.btnRefresh -> {
+                    getData()
                     Toast.makeText(requireContext(), "refreshed", Toast.LENGTH_SHORT).show()
                     true
                 }
@@ -148,7 +120,11 @@ class StoryPage : Fragment(), StoryAdapter.ToDetailCallback {
 
     private fun getData() {
         val adapter = StoryAdapter()
-        binding.rvStory.adapter = adapter
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         adapter.setToDetailCallback(
             this
         )
